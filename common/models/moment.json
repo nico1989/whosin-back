@@ -1,0 +1,23 @@
+{
+  "name": "Moment",
+  "plural": "Moments",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "what": {
+      "type": "string",
+      "required": true
+    },
+    "when": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}
