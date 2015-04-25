@@ -1,4 +1,3 @@
-# whosin-back
-Whosin Back Office
+# WHOSIN ?
 
-Testing StrongLoop and sails.js
+The project is powered by [LoopBack](http://loopback.io).
