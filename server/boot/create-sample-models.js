@@ -1,6 +1,8 @@
 module.exports = function(app) {
+
+  // Create Moments into the database
   app.dataSources.db.automigrate('Moment', function(err) {
-    if (err) throw err;
+    if(err) throw err;
 
     var now = Date.now();
     var hour = 14400000;
@@ -15,4 +17,16 @@ module.exports = function(app) {
       console.log('Models created: \n', moments);
     });
   });
+
+  // Create fake User
+  var User = app.models.User;
+  User.create({email: 'foo@bar.com', password: 'bar'}, function(err, user){
+    console.log(user);
+  });
+
+  // Login fake User
+  // User.login({email: 'foo@bar.com', password: 'bar'}, function(err, accessToken){
+  //   if(err) throw err;
+  //   console.log(accessToken);
+  // });
 };

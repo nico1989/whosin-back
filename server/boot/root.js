@@ -3,4 +3,12 @@ module.exports = function(server) {
   // var router = server.loopback.Router();
   // router.get('/', server.loopback.status());
   // server.use(router);
+
+  server.get('/', function(req, res){
+    res.render('home');
+  });
+
+  server.get('/signup', function(req, res) {
+    res.render('signup');
+  });
 };
