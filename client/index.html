@@ -5,8 +5,22 @@
   <title>Who's in ?</title>
 </head>
 <body>
-  <h1>Coucou Nico</h1>
-  <h2>Tu veux une bière ?</h2>
-  <h3>SANTÉ !</h3>
+  <h1>Create Moment</h1>
+
+  <form id="moment-form" method="POST" action="/api/Moments">
+    <label for="what">
+      What ?
+      <input id="what" name="what" type="text" placeholder="Beer ?">
+    </label>
+    <label>
+      When ?
+      <input id="when" name="when" type="date">
+    </label>
+    <input type="submit" value="Go !">
+  </form>
+
+  <script type="text/javascript">
+    document.getElementById('when').value = new Date().toJSON().slice(0, 10);
+  </script>
 </body>
 </html>
