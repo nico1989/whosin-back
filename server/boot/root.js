@@ -11,4 +11,12 @@ module.exports = function(server) {
   server.get('/signup', function(req, res) {
     res.render('signup');
   });
+
+  server.get('/login', function(req, res) {
+    res.render('login');
+  });
+
+  server.get('/me', function(req, res) {
+    res.render('me', {email: "placeholder"});
+  });
 };

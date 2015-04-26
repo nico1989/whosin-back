@@ -8,6 +8,9 @@ var app = module.exports = loopback();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+// Use cookies for authentication
+app.use(loopback.token({ model: app.models.accessToken }));
+
 // configure body parser
 // app.use(bodyParser.urlencoded({extended: true}));
 
