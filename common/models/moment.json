@@ -19,8 +19,8 @@
   "validations": [],
   "relations": {
     "members": {
-      "type": "hasMany",
-      "model": "Members",
+      "type": "belongsTo",
+      "model": "Member",
       "foreignKey": "ownerId"
     }
   },

@@ -6,17 +6,12 @@
   "options": {
     "validateUpsert": true
   },
-  "properties": {
-    "test": {
-      "type": "string",
-      "required": false
-    }
-  },
+  "properties": {},
   "validations": [],
   "relations": {
     "moments": {
       "type": "hasMany",
-      "model": "Moments",
+      "model": "Moment",
       "foreignKey": "ownerId"
     }
   },

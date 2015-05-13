@@ -10,16 +10,15 @@ module.exports = function(app) {
     members: async.apply(createMembers),
   }, function(err, results) {
     if (err) throw err;
-
-    createMoments(results.members, function(err) {
-      console.log('> models created sucessfully');
+    console.log(' > ' + results.members.length + ' members created successfully.');
+    createMoments(results.members, function(err, moments) {
+      console.log(' > ' + moments.length + ' moments created successfully.');
     });
   });
 
 
   // create members
   function createMembers(cb) {
-    console.log('here ?');
     dbDs.automigrate('Member', function(err) {
       if (err) return cb(err);
 
