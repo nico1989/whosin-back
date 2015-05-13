@@ -1,46 +1,61 @@
+var async = require('async');
+
 module.exports = function(app) {
+  // data source
+  var dbDs = app.dataSources.db;
 
-  // Create fake Member into the database
-  app.dataSources.db.automigrate('Member', function(err) {
-    if(err) throw err;
 
-    var Member = app.models.Member;
-    Member.create([
-      {email: 'foo@bar.com', password: 'bar'}
-      ], function(err, members){
-        console.log('\n');
-        console.log('id[' + members[0].id + '] ' + members[0].email, ' created');
+  // create all models
+  async.parallel({
+    members: async.apply(createMembers),
+  }, function(err, results) {
+    if (err) throw err;
 
-        // Login fake Member
-        Member.login({email: 'foo@bar.com', password: 'bar'}, function(err, accessToken){
-          if(err) throw err;
-          console.log("accessToken = ", accessToken.id);
-      });
+    createMoments(results.members, function(err) {
+      console.log('> models created sucessfully');
     });
   });
 
 
-  // Create Moments into the database
-  app.dataSources.db.automigrate('Moment', function(err) {
-    if(err) throw err;
+  // create members
+  function createMembers(cb) {
+    console.log('here ?');
+    dbDs.automigrate('Member', function(err) {
+      if (err) return cb(err);
 
-    var now = Date.now();
-    var hour = 14400000;
-
-    var Moment = app.models.Moment;
-    Moment.create([
-      {what: 'Drink a beer ?', when: now + 1 * hour},
-      {what: 'Suck my dick ?', when: now + 3 * hour},
-      {what: 'Eat my pussy ?', when: now + 6 * hour},
-    ], function(err, moments) {
-      if (err) throw err;
-
-      // console.log('Models created: \n', moments);
-      console.log('Models created \n');
-
-      Moment.status(function(something, data){
-        console.log(data);
-      });
+      app.models.Member.create([
+        {email: 'foo@bar.com', password: 'bar'},
+        {email: 'john@doe.com', password: 'johndoe'},
+        {email: 'jane@doe.com', password: 'janedoe'}
+      ], cb);
     });
-  });
+  }
+
+
+  // create moments
+  function createMoments(members, cb) {
+    dbDs.automigrate('Moment', function(err) {
+      if (err) return cb(err);
+
+      var HOUR_IN_MILLISECONDS = 1000 * 60 * 60;
+
+      app.models.Moment.create([
+        {
+          what: 'Drink a beer ?',
+          when: Date.now() + (HOUR_IN_MILLISECONDS * 3),
+          ownerId: members[0].id,
+        },
+        {
+          what: 'Suck my dick ?',
+          when: Date.now() + (HOUR_IN_MILLISECONDS * 2),
+          ownerId: members[1].id,
+        },
+        {
+          what: 'Eat my pussy ?',
+          when: Date.now() + (HOUR_IN_MILLISECONDS),
+          ownerId: members[2].id,
+        }
+      ], cb);
+    });
+  }
 };

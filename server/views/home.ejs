@@ -12,13 +12,19 @@
           When ?
           <input id="when" name="when" type="date">
         </label>
+        <label>
+          OwnerId ?
+          <input id="ownerId" name="ownerId" type="text">
+        </label>
         <input type="submit" value="Go !">
       </fieldset>
     </form>
   </section>
 
+  <script type="text/javascript" src="js/main.js"></script>
   <script type="text/javascript">
     document.getElementById('when').value = new Date().toJSON().slice(0, 10);
+    document.getElementById('ownerId').value = sessionStorage.whosinOwnerId;
   </script>
 
 <% include partials/footer %>
