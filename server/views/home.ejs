@@ -1,4 +1,25 @@
 <% include partials/header %>
+
+  <section>
+    <h1>Log in</h1>
+    <form action="/api/members/login" method="post">
+      <fieldset>
+        <legend><h1>Login form</h1></legend>
+        <div>
+          <label for="email">Email:</label>
+          <input type="text" name="email" value=""/>
+        </div>
+        <div>
+          <label for="password">Password:</label>
+          <input type="password" name="password" value=""/>
+        </div>
+        <div>
+          <input type="submit" value="Log In"/>
+        </div>
+      </fieldset>
+    </form>
+  </section>
+
   <section>
     <h1>Create Moment</h1>
 
@@ -14,17 +35,17 @@
         </label>
         <label>
           OwnerId ?
-          <input id="ownerId" name="ownerId" type="text">
+          <input id="ownerId" name="ownerId" type="text" value="1">
         </label>
         <input type="submit" value="Go !">
       </fieldset>
     </form>
   </section>
 
-  <script type="text/javascript" src="js/main.js"></script>
+  <!--<script type="text/javascript" src="/js/main.js"></script>-->
   <script type="text/javascript">
     document.getElementById('when').value = new Date().toJSON().slice(0, 10);
-    document.getElementById('ownerId').value = sessionStorage.whosinOwnerId;
+    // document.getElementById('ownerId').value = sessionStorage.whosinOwnerId;
   </script>
 
 <% include partials/footer %>

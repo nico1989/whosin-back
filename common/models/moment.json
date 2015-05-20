@@ -3,9 +3,6 @@
   "plural": "Moments",
   "base": "PersistedModel",
   "idInjection": true,
-  "options": {
-    "validateUpsert": true
-  },
   "properties": {
     "what": {
       "type": "string",
@@ -24,6 +21,8 @@
       "foreignKey": "ownerId"
     }
   },
-  "acls": [],
+  "acls": [
+
+  ],
   "methods": []
 }
