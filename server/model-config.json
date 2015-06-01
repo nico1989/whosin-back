@@ -33,5 +33,9 @@
   "Member": {
     "dataSource": "db",
     "public": true
+  },
+  "Follow": {
+    "dataSource": "db",
+    "public": true
   }
 }

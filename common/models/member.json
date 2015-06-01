@@ -13,14 +13,52 @@
       "type": "hasMany",
       "model": "Moment",
       "foreignKey": "ownerId"
+    },
+    "followers": {
+      "type": "hasMany",
+      "model": "Member",
+      "through": "Follow",
+      "foreignKey": "followeeId",
+      "keyThrough": "followerId"
+    },
+    "following": {
+      "type": "hasMany",
+      "model": "Member",
+      "through": "Follow",
+      "foreignKey": "followerId",
+      "keyThrough": "followeeId"
     }
   },
   "acls": [
     {
       "principalType": "ROLE",
-      "principalId": "$owner",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "findById"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "nimp"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
       "permission": "ALLOW",
       "property": "__get__moments"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "__get__followers"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "__get__following"
     }
   ],
   "methods": []

@@ -4,6 +4,9 @@ module.exports = function(app) {
   // data source
   var dbDs = app.dataSources.db;
 
+  var Member = app.models.Member
+    ;
+
 
   // create all models
   async.parallel({
@@ -11,6 +14,11 @@ module.exports = function(app) {
   }, function(err, results) {
     if (err) throw err;
     console.log(' > ' + results.members.length + ' members created successfully.');
+
+    createFriendship(results.members, function(err, members){
+      console.log('   > friendships created successfully.');
+    })
+
     createMoments(results.members, function(err, moments) {
       console.log(' > ' + moments.length + ' moments created successfully.');
     });
@@ -18,16 +26,27 @@ module.exports = function(app) {
 
 
   // create members
-  function createMembers(cb) {
+  function createMembers(cb){
     dbDs.automigrate('Member', function(err) {
       if (err) return cb(err);
 
-      app.models.Member.create([
+      Member.create([
         {email: 'foo@bar.com', password: 'bar'},
         {email: 'john@doe.com', password: 'johndoe'},
         {email: 'jane@doe.com', password: 'janedoe'}
       ], cb);
+
     });
+  }
+
+
+  // create friendship
+  function createFriendship(members, cb){
+    members[0].followers.add(members[1])
+    members[0].followers.add(members[2]);
+    members[1].followers.add(members[0]);
+
+    cb();
   }
 
 

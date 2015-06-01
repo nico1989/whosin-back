@@ -1,0 +1,23 @@
+{
+  "name": "Follow",
+  "plural": "Follows",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "follower":{
+      "type": "belongsTo",
+      "model": "Member"
+    },
+    "followee":{
+      "type": "belongsTo",
+      "model": "Member"
+    }
+  },
+  "acls": [],
+  "methods": []
+}
